@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://c151455b47hxt"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_vbkua"]
+[ext_resource type="PackedScene" uid="uid://fwmy257opo7d" path="res://scenes/map.tscn" id="2_kiehb"]
+[ext_resource type="PackedScene" uid="uid://dmdqkomnsrjpy" path="res://scenes/coin.tscn" id="3_l6qus"]
+[ext_resource type="PackedScene" uid="uid://dd3kxfrtrq8cf" path="res://scenes/player.tscn" id="4_hb684"]
+[ext_resource type="Script" path="res://scripts/world_boundary.gd" id="5_cddt5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_77a8k"]
+distance = -292.0
+
+[node name="level1" type="Node"]
+script = ExtResource("1_vbkua")
+
+[node name="Map" parent="." instance=ExtResource("2_kiehb")]
+layer_0/tile_data = PackedInt32Array(131076, 131073, 1, 131077, 131073, 1, 131078, 131073, 1, 327714, 720897, 3, 327716, 131073, 2, 327717, 131073, 2, 393251, 131073, 1, 393250, 131073, 1, 262180, 131073, 1, 262181, 131073, 1, 524318, 131073, 1, 524319, 131073, 1, 196612, 131073, 2, 196613, 131073, 2, 196614, 131073, 2, 10, 262145, 1, -65519, 983041, 2, -65520, 917505, 2, 458783, 589825, 1, 458782, 524289, 1, 131082, 131073, 1, 131083, 131073, 1, 131084, 131073, 1, 131087, 131073, 1, 131088, 131073, 1, 131089, 131073, 1, 131093, 131073, 1, 131094, 131073, 1, 131095, 131073, 1, -65511, 131073, 1, -65510, 131073, 1, 262170, 131073, 1, 262171, 131073, 1, 524320, 131073, 1, 131110, 131073, 1, 131111, 131073, 1, 131112, 131073, 1, 131113, 131073, 1, 131114, 131073, 1, 131115, 131073, 1, -131043, 131073, 1, -131042, 131073, 1, -131038, 131073, 1, -196573, 131073, 1, -196572, 131073, 1, -262105, 131073, 1, -262104, 131073, 1, 196618, 131073, 2, 196620, 131073, 2, 196619, 131073, 2, 196623, 131073, 2, 196625, 131073, 2, 196624, 131073, 2, 196629, 131073, 2, 196630, 131073, 2, 196631, 131073, 2, -65507, 131073, 2, -65506, 131073, 2, -131037, 131073, 2, -131036, 131073, 2, -65502, 131073, 2, -196569, 131073, 2, -196568, 131073, 2, -65501, 131073, 2, 327706, 131073, 2, 327707, 131073, 2, 589854, 131073, 2, 589855, 131073, 2, 589856, 131073, 2, 458786, 131073, 2, 458787, 131073, 2, 196646, 131073, 2, 196647, 131073, 2, 196648, 131073, 2, 196649, 131073, 2, 196650, 131073, 2, 196651, 131073, 2, 65546, 262145, 2, 22, 262145, 1, 65558, 262145, 2, 43, 262145, 1, 65579, 262145, 2, 16, 851969, 5, 65552, 851969, 6, -196593, 851969, 0, -131057, 851969, 1, -65521, 851969, 2, -196592, 917505, 0, -131056, 917505, 1, -196591, 983041, 0, -131055, 983041, 1, 65553, 655361, 5, -131046, 655361, 5, -196579, 655361, 5, -196574, 655361, 5, -327640, 655361, 5, 196635, 655361, 5, 65575, 720897, 3)
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("3_l6qus")]
+position = Vector2(181, 22)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("3_l6qus")]
+position = Vector2(439, -29)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("3_l6qus")]
+position = Vector2(395, 26)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("3_l6qus")]
+position = Vector2(552, 126)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("3_l6qus")]
+position = Vector2(712, 19)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("3_l6qus")]
+position = Vector2(686, -90)
+
+[node name="Player" parent="." instance=ExtResource("4_hb684")]
+position = Vector2(79, 10)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3.5, 3.5)
+
+[node name="Score" type="Label" parent="Player/Camera2D"]
+offset_left = -154.0
+offset_top = -89.0
+offset_right = -114.0
+offset_bottom = -66.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 250
+text = "0"
+
+[node name="World boundary" type="Area2D" parent="."]
+script = ExtResource("5_cddt5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World boundary"]
+shape = SubResource("WorldBoundaryShape2D_77a8k")
+
+[connection signal="body_entered" from="World boundary" to="World boundary" method="_on_body_entered"]

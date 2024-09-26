@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwex0l4q1mxmj"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_fti1b"]
+[ext_resource type="PackedScene" uid="uid://fwmy257opo7d" path="res://scenes/map.tscn" id="2_krtbj"]
+[ext_resource type="PackedScene" uid="uid://dmdqkomnsrjpy" path="res://scenes/coin.tscn" id="3_fbafo"]
+[ext_resource type="PackedScene" uid="uid://dd3kxfrtrq8cf" path="res://scenes/player.tscn" id="4_1agw7"]
+[ext_resource type="Script" path="res://scripts/world_boundary.gd" id="5_mo3pr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x1nlt"]
+distance = -292.0
+
+[node name="Main" type="Node"]
+script = ExtResource("1_fti1b")
+
+[node name="Map" parent="." instance=ExtResource("2_krtbj")]
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("3_fbafo")]
+position = Vector2(179, -14)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("3_fbafo")]
+position = Vector2(356, -49)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("3_fbafo")]
+position = Vector2(339, 49)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("3_fbafo")]
+position = Vector2(483, 50)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("3_fbafo")]
+position = Vector2(596, 48)
+
+[node name="Player" parent="." instance=ExtResource("4_1agw7")]
+position = Vector2(79, 10)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3.5, 3.5)
+
+[node name="Score" type="Label" parent="Player/Camera2D"]
+offset_left = -154.0
+offset_top = -89.0
+offset_right = -114.0
+offset_bottom = -66.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 250
+text = "0"
+
+[node name="World boundary" type="Area2D" parent="."]
+script = ExtResource("5_mo3pr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World boundary"]
+shape = SubResource("WorldBoundaryShape2D_x1nlt")
+
+[connection signal="body_entered" from="World boundary" to="World boundary" method="_on_body_entered"]
