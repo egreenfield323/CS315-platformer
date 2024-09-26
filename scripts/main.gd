@@ -9,7 +9,7 @@ func coin_collected():
 
 func _process(delta: float) -> void:
 	if get_node(".").name == "level1":
-		if score == 5:
+		if score == 6:
 			get_tree().change_scene_to_file("res://scenes/level2.tscn")
 			score = 0
 	else:
